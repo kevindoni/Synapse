@@ -1,0 +1,19 @@
+[Unit]
+Description=Synapse AI Gateway
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/synapse
+ExecStart=/usr/bin/node /opt/synapse/.next/standalone/server.js
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=DATA_DIR=/var/lib/synapse
+Environment=SYNAPSE_PASSWORD=changeme
+Environment=JWT_SECRET=change-me-to-a-random-secret
+
+[Install]
+WantedBy=multi-user.target

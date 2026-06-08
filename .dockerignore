@@ -1,0 +1,10 @@
+node_modules
+.next
+.git
+screenshots
+e2e
+docs
+.playwright-mcp
+.kilo
+*.md
+!README.md

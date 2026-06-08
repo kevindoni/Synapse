@@ -184,18 +184,71 @@ synapse/
 
 ### Prerequisites
 - **Node.js** 20+
-- **npm**
+- **npm** or **git**
 
-### Install & Run
+### Option 1: Clone & Run (Recommended)
 
 ```bash
 git clone https://github.com/kevindoni/Synapse.git
 cd Synapse
 npm install
-npm run dev
+synapse start
 ```
 
 Open **http://localhost:3000** → login with password `changeme`.
+
+### Option 2: Development Mode
+
+```bash
+git clone https://github.com/kevindoni/Synapse.git
+cd Synapse
+npm install
+synapse dev          # Hot reload, auto-restart
+```
+
+### Option 3: Production (PM2 / systemd)
+
+```bash
+git clone https://github.com/kevindoni/Synapse.git
+cd Synapse
+npm install
+npm run build
+
+# Start with PM2
+npx pm2 start .next/standalone/server.js --name synapse
+npx pm2 save
+
+# Or with systemd (Linux)
+sudo cp deploy/synapse.service /etc/systemd/system/
+sudo systemctl enable synapse
+sudo systemctl start synapse
+```
+
+### CLI Commands
+
+```bash
+synapse start       # Start production server (auto-build if needed)
+synapse stop        # Stop server
+synapse restart     # Restart server
+synapse status      # Check if running
+synapse dev         # Development mode (hot reload)
+synapse build       # Build for production
+synapse version     # Show version
+synapse help        # Show all commands
+```
+
+### Environment Variables
+
+```bash
+# Custom port
+PORT=8080 synapse start
+
+# Custom password
+SYNAPSE_PASSWORD=my-secret synapse start
+
+# Custom data dir
+DATA_DIR=/var/lib/synapse synapse start
+```
 
 ### Connect AI Providers
 
@@ -204,13 +257,6 @@ Open **http://localhost:3000** → login with password `changeme`.
 3. Click **Add Account** → paste your API key
 4. Click **Fetch Models** to populate the model list
 5. Start chatting in the **Playground**
-
-### Production Build
-
-```bash
-npm run build
-npm start
-```
 
 ---
 

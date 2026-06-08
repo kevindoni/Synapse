@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  synapse:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - SYNAPSE_PASSWORD=changeme
+      - JWT_SECRET=change-me-to-a-random-secret
+      - DATA_DIR=/data
+    volumes:
+      - synapse-data:/data
+    restart: unless-stopped
+
+volumes:
+  synapse-data:
