@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="screenshots/dashboard.png" alt="Synapse Dashboard" width="100%">
+  <img src="screenshots/01-command-center.png" alt="Synapse Dashboard" width="100%">
 </p>
 
 <h1 align="center">⚡ Synapse — AI Gateway & Intelligence Platform</h1>
@@ -17,32 +17,68 @@
   <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
 </p>
 
+<p align="center">
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-21-breakthrough-features">Features</a> •
+  <a href="#-screenshots">Screenshots</a> •
+  <a href="#-api-reference">API</a> •
+  <a href="#-tech-stack">Tech Stack</a>
+</p>
+
 ---
 
-## ✨ Screenshots
+## 📸 Screenshots
+
+### Authentication
+
+<p align="center">
+  <img src="screenshots/00-login.png" alt="Login" width="80%">
+</p>
+
+### Dashboard — All 10 Pages
 
 <table>
   <tr>
-    <td align="center"><b>🔐 Login</b></td>
     <td align="center"><b>📊 Command Center</b></td>
+    <td align="center"><b>🔌 Providers</b></td>
   </tr>
   <tr>
-    <td><img src="screenshots/login.png" alt="Login" width="100%"></td>
-    <td><img src="screenshots/dashboard.png" alt="Dashboard" width="100%"></td>
+    <td><img src="screenshots/01-command-center.png" alt="Command Center" width="100%"></td>
+    <td><img src="screenshots/02-providers.png" alt="Providers" width="100%"></td>
   </tr>
   <tr>
-    <td align="center"><b>🤖 Providers</b></td>
+    <td align="center"><b>🧠 Models</b></td>
+    <td align="center"><b>🔀 Routes</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/03-models.png" alt="Models" width="100%"></td>
+    <td><img src="screenshots/04-routes.png" alt="Routes" width="100%"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>🛠️ Skills</b></td>
+    <td align="center"><b>✨ Intelligence</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/05-skills.png" alt="Skills" width="100%"></td>
+    <td><img src="screenshots/06-intelligence.png" alt="Intelligence" width="100%"></td>
+  </tr>
+  <tr>
     <td align="center"><b>💬 Playground</b></td>
+    <td align="center"><b>💾 Memory</b></td>
   </tr>
   <tr>
-    <td><img src="screenshots/providers.png" alt="Providers" width="100%"></td>
-    <td><img src="screenshots/playground.png" alt="Playground" width="100%"></td>
+    <td><img src="screenshots/07-playground.png" alt="Playground" width="100%"></td>
+    <td><img src="screenshots/08-memory.png" alt="Memory" width="100%"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>🔐 Vault</b></td>
+    <td align="center"><b>⚙️ Settings</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/09-vault.png" alt="Vault" width="100%"></td>
+    <td><img src="screenshots/10-settings.png" alt="Settings" width="100%"></td>
   </tr>
 </table>
-
-<p align="center">
-  <img src="screenshots/intelligence.png" alt="Intelligence" width="80%">
-</p>
 
 ---
 
@@ -57,7 +93,7 @@
 | 5 | **Self-Learning (Distiller)** | Runs every 6h, extracts patterns, generates rules from request history |
 | 6 | **Dynamic Skill Rotation** | 5 strategies: round-robin, quality-based, weighted-random, task-match, schedule |
 | 7 | **Skill Forge** | Create skills from recipes, import from OpenClaw format |
-| 8 | **Universal Namespace** | 8 aliases (best, fast, cheap, code, reason...) + auto task detection |
+| 8 | **Universal Namespace** | 8 aliases (`best`, `fast`, `cheap`, `code`, `reason`...) + auto task detection |
 | 9 | **Predictive Cost Engine** | Monthly forecast, budget manager, model cost comparison |
 | 10 | **Provider Health Monitor** | Tracks latency, error rate, consecutive failures every 5 minutes |
 | 11 | **Request Forensics** | Timeline, root cause analysis, latency breakdown, optimization suggestions |
@@ -153,22 +189,13 @@ synapse/
 ### Install & Run
 
 ```bash
-# Clone the repository
 git clone https://github.com/kevindoni/Synapse.git
 cd Synapse
-
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
 ```
 
-Open **http://localhost:3000** — you'll be redirected to the login page.
-
-### First-Time Login
-- Default password: `changeme`
-- Change via environment variable: `SYNAPSE_PASSWORD=your-password`
+Open **http://localhost:3000** → login with password `changeme`.
 
 ### Connect AI Providers
 
@@ -202,39 +229,19 @@ npm start
 ## 🧪 Testing
 
 ```bash
-# Unit tests (46 tests)
-npm test
-
-# E2E tests (30 tests)
-npm run test:e2e
-
-# All tests
-npm run test:all
+npm test            # Unit tests (46 tests — Vitest)
+npm run test:e2e    # E2E tests (30 tests — Playwright)
+npm run test:all    # Run everything
 ```
-
-### Test Coverage
-
-| Suite | Tests | Framework |
-|-------|-------|-----------|
-| Unit | 46 passing | Vitest |
-| E2E | 30 passing | Playwright |
-| TypeScript | 0 errors | strict mode |
 
 ---
 
 ## ⚙️ Environment Variables
 
-Create a `.env.local` file:
-
 ```env
-# Authentication
 JWT_SECRET=your-jwt-secret
 SYNAPSE_PASSWORD=your-admin-password
-
-# Data directory (default: ~/.synapse)
-DATA_DIR=/path/to/data
-
-# Provider API keys (or set via dashboard)
+DATA_DIR=/path/to/data                # default: ~/.synapse
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...
 GEMINI_API_KEY=AIza...
@@ -257,9 +264,9 @@ OPENROUTER_API_KEY=sk-or-...
 
 ## 🗄️ Database
 
-Synapse uses **SQLite** (via better-sqlite3) with **Drizzle ORM** — zero external dependencies.
+**SQLite** (via better-sqlite3) + **Drizzle ORM** — zero external dependencies.
 
-- **21 tables** with 8 indexes
+- 21 tables with 8 indexes
 - WAL mode for concurrent reads
 - Auto-migration on startup
 - Stored at `~/.synapse/synapse.db`
@@ -282,14 +289,14 @@ Synapse uses **SQLite** (via better-sqlite3) with **Drizzle ORM** — zero exter
 
 ## 📄 API Reference
 
-### OpenAI-Compatible Endpoints
+### OpenAI-Compatible
 
 ```
-POST   /api/v1/chat/completions    # Chat completion (streaming supported)
+POST   /api/v1/chat/completions    # Chat completion (SSE streaming supported)
 GET    /api/v1/models               # List models (OpenAI format)
 ```
 
-### Management Endpoints
+### Management
 
 ```
 GET    /api/providers               # List providers
@@ -297,7 +304,6 @@ POST   /api/providers               # Add provider
 GET    /api/providers/health        # Health status
 POST   /api/providers/accounts      # Add API key
 POST   /api/providers/fetch-models  # Fetch models from provider
-
 GET    /api/models                  # List all models
 GET    /api/skills                  # List skills + groups
 POST   /api/skills                  # Create skill
