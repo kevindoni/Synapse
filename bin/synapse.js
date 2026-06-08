@@ -39,14 +39,38 @@ function ensureDataDir() {
   }
 }
 
+function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDir(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
 function buildIfNeeded() {
   const PKG_DIR = getPkgDir();
   const standaloneDir = path.join(PKG_DIR, '.next', 'standalone');
-  if (fs.existsSync(path.join(standaloneDir, 'server.js'))) return;
+  if (fs.existsSync(path.join(standaloneDir, 'server.js')) &&
+      fs.existsSync(path.join(standaloneDir, 'public'))) return;
 
   console.log('⚡ Building Synapse (first time)...');
   try {
-    execSync('npx next build', { cwd: PKG_DIR, stdio: 'inherit' });
+    const nextBin = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+    execSync(`"${nextBin}" next build`, { cwd: PKG_DIR, stdio: 'inherit' });
+    copyDir(
+      path.join(PKG_DIR, '.next', 'static'),
+      path.join(standaloneDir, '.next', 'static')
+    );
+    copyDir(
+      path.join(PKG_DIR, 'public'),
+      path.join(standaloneDir, 'public')
+    );
     console.log('⚡ Build complete!');
   } catch {
     console.error('❌ Build failed. Try running manually: npm run build');
@@ -64,7 +88,8 @@ function startServer() {
   buildIfNeeded();
 
   const PKG_DIR = getPkgDir();
-  const standaloneServer = path.join(PKG_DIR, '.next', 'standalone', 'server.js');
+  const standaloneDir = path.join(PKG_DIR, '.next', 'standalone');
+  const standaloneServer = path.join(standaloneDir, 'server.js');
 
   const env = {
     ...process.env,
@@ -73,7 +98,7 @@ function startServer() {
   };
 
   const child = spawn(process.execPath, [standaloneServer], {
-    cwd: PKG_DIR,
+    cwd: standaloneDir,
     detached: true,
     stdio: 'ignore',
     env,
