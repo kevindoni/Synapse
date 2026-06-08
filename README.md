@@ -1,36 +1,333 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="screenshots/dashboard.png" alt="Synapse Dashboard" width="100%">
+</p>
 
-## Getting Started
+<h1 align="center">⚡ Synapse — AI Gateway & Intelligence Platform</h1>
 
-First, run the development server:
+<p align="center">
+  <strong>The neural hub for all your AI providers.</strong><br>
+  Route requests intelligently, cache semantically, compress tokens, learn from experience, and manage 5+ AI providers through a single beautiful dashboard.
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/SQLite-Embedded-003B57?logo=sqlite" alt="SQLite" />
+  <img src="https://img.shields.io/badge/Tests-76%20passing-brightgreen" alt="Tests" />
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
+</p>
+
+---
+
+## ✨ Screenshots
+
+<table>
+  <tr>
+    <td align="center"><b>🔐 Login</b></td>
+    <td align="center"><b>📊 Command Center</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/login.png" alt="Login" width="100%"></td>
+    <td><img src="screenshots/dashboard.png" alt="Dashboard" width="100%"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>🤖 Providers</b></td>
+    <td align="center"><b>💬 Playground</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/providers.png" alt="Providers" width="100%"></td>
+    <td><img src="screenshots/playground.png" alt="Playground" width="100%"></td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="screenshots/intelligence.png" alt="Intelligence" width="80%">
+</p>
+
+---
+
+## 🧠 21 Breakthrough Features
+
+| # | Feature | Description |
+|---|---------|-------------|
+| 1 | **Neural Router** | AI-powered request routing with 5 strategies (priority, latency, cost, round-robin, hybrid) |
+| 2 | **Semantic Cache** | LRU + SQLite persisted cache with SHA-256 hashing and TTL expiry |
+| 3 | **Adaptive Token Squeezer** | 4 compression levels (none → aggressive), auto-classifies code vs text |
+| 4 | **Persistent Memory** | 3-layer store: Episodic (90-day), Semantic (permanent), Procedural (rules) |
+| 5 | **Self-Learning (Distiller)** | Runs every 6h, extracts patterns, generates rules from request history |
+| 6 | **Dynamic Skill Rotation** | 5 strategies: round-robin, quality-based, weighted-random, task-match, schedule |
+| 7 | **Skill Forge** | Create skills from recipes, import from OpenClaw format |
+| 8 | **Universal Namespace** | 8 aliases (best, fast, cheap, code, reason...) + auto task detection |
+| 9 | **Predictive Cost Engine** | Monthly forecast, budget manager, model cost comparison |
+| 10 | **Provider Health Monitor** | Tracks latency, error rate, consecutive failures every 5 minutes |
+| 11 | **Request Forensics** | Timeline, root cause analysis, latency breakdown, optimization suggestions |
+| 12 | **MCP Gateway** | Model Context Protocol server with 6 tools + 2 resources |
+| 13 | **Plugin System** | Pre/post request hooks with PII redactor + response validator built-in |
+| 14 | **Benchmark Engine** | Shadow testing, quality scoring, A/B model comparison |
+| 15 | **Pipeline Builder** | 11 node types, visual pipeline construction |
+| 16 | **Format Translation** | Bidirectional converters for OpenAI, Anthropic, Gemini |
+| 17 | **Fallback Engine** | Candidate ranking, exponential backoff, timeout management |
+| 18 | **Auth System** | JWT login + API key management (`syn_` prefixed keys, SHA-256 hashed) |
+| 19 | **Analytics Aggregator** | Usage stats, 30-day time series, top models, provider performance |
+| 20 | **Provider Management** | 5 adapters (OpenAI, Anthropic, Gemini, DeepSeek, OpenRouter) |
+| 21 | **Real-time Dashboard** | 10 pages with live data, SSE streaming, auto-refresh |
+
+---
+
+## 🏗️ Architecture
+
+```
+synapse/
+├── src/
+│   ├── app/
+│   │   ├── api/                  # 42 API Routes
+│   │   │   ├── v1/               # OpenAI-compatible endpoints
+│   │   │   │   ├── chat/completions
+│   │   │   │   └── models
+│   │   │   ├── providers/        # Provider + account management
+│   │   │   ├── models/           # Model registry + benchmark
+│   │   │   ├── skills/           # Skill CRUD + rotation
+│   │   │   ├── memory/           # 3-layer memory store
+│   │   │   ├── cache/            # Semantic cache stats
+│   │   │   ├── intelligence/     # Neural router + forensics
+│   │   │   ├── analytics/        # Usage + cost analytics
+│   │   │   ├── auth/             # JWT login
+│   │   │   ├── keys/             # API key management
+│   │   │   ├── mcp/              # MCP gateway
+│   │   │   ├── namespace/        # Universal model aliases
+│   │   │   ├── plugins/          # Plugin management
+│   │   │   ├── routes/pipeline/  # Pipeline builder
+│   │   │   ├── settings/         # App configuration
+│   │   │   ├── dashboard/        # Dashboard data
+│   │   │   ├── distill/          # Experience distiller
+│   │   │   └── events/           # SSE stream
+│   │   ├── dashboard/            # 10 Dashboard Pages
+│   │   │   ├── page.tsx          # Command Center
+│   │   │   ├── providers/        # Provider management
+│   │   │   ├── models/           # Model browser
+│   │   │   ├── routes/           # Pipeline routes
+│   │   │   ├── skills/           # Skill management
+│   │   │   ├── intelligence/     # Neural router + forensics
+│   │   │   ├── playground/       # SSE streaming chat
+│   │   │   ├── memory/           # 3-layer memory
+│   │   │   ├── vault/            # API keys
+│   │   │   └── settings/         # Configuration
+│   │   └── login/                # Auth page
+│   ├── lib/
+│   │   ├── providers/            # 5 Provider Adapters
+│   │   ├── router/               # Core request router
+│   │   ├── fallback/             # Fallback engine
+│   │   ├── format/               # Format translators
+│   │   ├── cache/                # Semantic cache
+│   │   ├── memory/               # Persistent memory
+│   │   ├── skills/               # Skill system
+│   │   ├── neural/               # Neural router
+│   │   ├── squeezer/             # Token compression
+│   │   ├── prediction/           # Cost forecasting
+│   │   ├── health/               # Health checker
+│   │   ├── namespace/            # Universal namespace
+│   │   ├── benchmark/            # Model benchmark
+│   │   ├── pipeline/             # Pipeline builder
+│   │   ├── mcp/                  # MCP gateway
+│   │   ├── plugins/              # Plugin system
+│   │   ├── forensics/            # Request forensics
+│   │   ├── distiller/            # Experience distiller
+│   │   ├── analytics/            # Analytics aggregator
+│   │   ├── auth/                 # JWT + API keys
+│   │   ├── db/                   # SQLite + Drizzle ORM (21 tables)
+│   │   └── config/               # Zod schema config
+│   └── components/ui/            # Reusable UI components
+├── e2e/                          # Playwright E2E tests
+├── docs/                         # PRD + Implementation Plan
+└── screenshots/                  # README screenshots
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Quick Start
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
+- **Node.js** 20+
+- **npm**
 
-## Learn More
+### Install & Run
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Clone the repository
+git clone https://github.com/kevindoni/Synapse.git
+cd Synapse
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Install dependencies
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Start development server
+npm run dev
+```
 
-## Deploy on Vercel
+Open **http://localhost:3000** — you'll be redirected to the login page.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### First-Time Login
+- Default password: `changeme`
+- Change via environment variable: `SYNAPSE_PASSWORD=your-password`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Connect AI Providers
+
+1. Login → open **Providers** in the sidebar
+2. Click **Manage** on a provider (e.g., OpenAI)
+3. Click **Add Account** → paste your API key
+4. Click **Fetch Models** to populate the model list
+5. Start chatting in the **Playground**
+
+### Production Build
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+## 🔌 Supported Providers
+
+| Provider | Prefix | Models |
+|----------|--------|--------|
+| **OpenAI** | `oa/` | GPT-4o, GPT-4o-mini, o3, o3-mini |
+| **Anthropic** | `an/` | Claude Sonnet 4, Claude Opus 4.7, Claude Haiku 3.5 |
+| **Google Gemini** | `gm/` | Gemini 2.5 Pro, Gemini 2.5 Flash |
+| **DeepSeek** | `ds/` | DeepSeek Chat, DeepSeek Reasoner |
+| **OpenRouter** | `or/` | 200+ models via single API |
+
+---
+
+## 🧪 Testing
+
+```bash
+# Unit tests (46 tests)
+npm test
+
+# E2E tests (30 tests)
+npm run test:e2e
+
+# All tests
+npm run test:all
+```
+
+### Test Coverage
+
+| Suite | Tests | Framework |
+|-------|-------|-----------|
+| Unit | 46 passing | Vitest |
+| E2E | 30 passing | Playwright |
+| TypeScript | 0 errors | strict mode |
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env.local` file:
+
+```env
+# Authentication
+JWT_SECRET=your-jwt-secret
+SYNAPSE_PASSWORD=your-admin-password
+
+# Data directory (default: ~/.synapse)
+DATA_DIR=/path/to/data
+
+# Provider API keys (or set via dashboard)
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-ant-...
+GEMINI_API_KEY=AIza...
+DEEPSEEK_API_KEY=sk-...
+OPENROUTER_API_KEY=sk-or-...
+```
+
+---
+
+## 🔐 Security
+
+- JWT authentication with 7-day expiry
+- API keys prefixed with `syn_`, stored as SHA-256 hashes
+- Rate limiting (100 req/min via middleware)
+- CORS configurable
+- PII redaction plugin built-in
+- Request forensics for auditing
+
+---
+
+## 🗄️ Database
+
+Synapse uses **SQLite** (via better-sqlite3) with **Drizzle ORM** — zero external dependencies.
+
+- **21 tables** with 8 indexes
+- WAL mode for concurrent reads
+- Auto-migration on startup
+- Stored at `~/.synapse/synapse.db`
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript (strict) |
+| Styling | Tailwind CSS v4 |
+| Database | SQLite + Drizzle ORM |
+| Auth | JWT (jose) + SHA-256 |
+| Testing | Vitest + Playwright |
+| AI Providers | OpenAI, Anthropic, Gemini, DeepSeek, OpenRouter |
+
+---
+
+## 📄 API Reference
+
+### OpenAI-Compatible Endpoints
+
+```
+POST   /api/v1/chat/completions    # Chat completion (streaming supported)
+GET    /api/v1/models               # List models (OpenAI format)
+```
+
+### Management Endpoints
+
+```
+GET    /api/providers               # List providers
+POST   /api/providers               # Add provider
+GET    /api/providers/health        # Health status
+POST   /api/providers/accounts      # Add API key
+POST   /api/providers/fetch-models  # Fetch models from provider
+
+GET    /api/models                  # List all models
+GET    /api/skills                  # List skills + groups
+POST   /api/skills                  # Create skill
+GET    /api/memory                  # Memory stats
+GET    /api/cache                   # Cache stats
+DELETE /api/cache                   # Clear cache
+GET    /api/settings                # Get settings
+PUT    /api/settings                # Update settings
+GET    /api/analytics/usage         # Usage stats
+GET    /api/analytics/cost          # Cost forecast
+GET    /api/namespace?model=best    # Resolve model alias
+GET    /api/intelligence/neural-router  # Neural router status
+GET    /api/intelligence/forensics  # Request forensics
+POST   /api/distill                 # Trigger experience distillation
+POST   /api/auth/login              # JWT login
+GET    /api/keys                    # List API keys
+POST   /api/keys                    # Generate API key
+DELETE /api/keys                    # Revoke API key
+POST   /api/mcp                     # MCP JSON-RPC
+GET    /api/dashboard               # Dashboard data
+```
+
+---
+
+## 📜 License
+
+MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+<p align="center">
+  Built with ⚡ by <a href="https://github.com/kevindoni">kevindoni</a>
+</p>
